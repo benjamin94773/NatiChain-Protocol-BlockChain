@@ -1,0 +1,16 @@
+# Dependencies
+node_modules/
+web/node_modules/
+
+# Build & compilation artifacts
+web/dist/
+foundry/out/
+foundry/cache/
+foundry/broadcast/
+
+# Logs & OS files
+*.log
+.DS_Store
+Thumbs.db
+.env
+.env.*
