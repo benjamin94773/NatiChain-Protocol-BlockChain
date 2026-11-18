@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NatiChain Protocol — Presentación Proyecto #3 Blockchain</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            brand: {
+              50: '#ecfdf5',
+              500: '#10b981',
+              600: '#059669',
+              900: '#064e3b',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background: radial-gradient(circle at 50% 0%, #0f172a 0%, #020617 100%);
+      color: #f8fafc;
+      overflow: hidden;
+    }
+    .slide {
+      display: none;
+      opacity: 0;
+      transform: translateY(16px);
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .slide.active {
+      display: flex;
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .glass-card {
+      background: rgba(15, 23, 42, 0.7);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
+    }
+    .gradient-text {
+      background: linear-gradient(135deg, #34d399 0%, #38bdf8 50%, #818cf8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  </style>
+</head>
+<body class="h-screen w-screen flex flex-col justify-between p-6 select-none font-sans">
+
+  <!-- Header / Barra Superior -->
+  <header class="flex items-center justify-between z-20">
+    <div class="flex items-center gap-3">
+      <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-emerald-400 to-teal-600 flex items-center justify-center shadow-lg shadow-emerald-950">
+        <svg class="w-5 h-5 text-slate-950" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+        </svg>
+      </div>
+      <div>
+        <h1 class="text-sm font-bold tracking-tight text-white flex items-center gap-2">
+          NatiChain Protocol
+          <span class="text-[10px] uppercase font-semibold px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">Proyecto #3</span>
+        </h1>
+        <p class="text-xs text-slate-400">Microfinanzas & Ahorro Comunitario en Blockchain</p>
+      </div>
+    </div>
+
+    <!-- Progreso y Botón Fullscreen -->
+    <div class="flex items-center gap-4">
+      <div class="text-xs font-mono text-slate-400 bg-slate-900/80 border border-slate-800 px-3 py-1.5 rounded-lg">
+        Diapositiva <span id="currentSlideNum" class="text-emerald-400 font-bold">1</span> / <span id="totalSlidesNum">9</span>
+      </div>
+      <button onclick="toggleFullScreen()" class="text-xs text-slate-400 hover:text-white px-2.5 py-1.5 rounded-lg bg-slate-900/80 border border-slate-800 transition" title="Pantalla Completa (F11)">
+        ⛶
+      </button>
+    </div>
+  </header>
+
+  <!-- Barra de Progreso Global -->
+  <div class="w-full bg-slate-800/40 h-1 rounded-full overflow-hidden my-3">
+    <div id="progressBar" class="bg-gradient-to-r from-emerald-500 to-indigo-500 h-full w-[11%] transition-all duration-300"></div>
+  </div>
+
+  <!-- Contenedor Principal de Diapositivas -->
+  <main class="flex-1 flex items-center justify-center relative z-10 w-full max-w-6xl mx-auto px-4">
+
+    <!-- SLIDE 1: PORTADA -->
+    <section class="slide active flex-col items-center text-center max-w-3xl">
+      <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 text-xs font-semibold mb-6">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        Sustentación de Proyecto • 10 Minutos
+      </div>
+      <h2 class="text-4xl sm:text-5xl font-extrabold tracking-tight text-white mb-4">
+        Círculos de Ahorro Comunitario en <span class="gradient-text">Blockchain</span>
+      </h2>
+      <p class="text-base sm:text-lg text-slate-300 mb-8 max-w-2xl leading-relaxed">
+        Reemplazando la opacidad y los riesgos del tesorero tradicional en <strong>Natilleras y Cadenas</strong> mediante bóvedas inmutables, reglas anti-mora y sorteos verificables on-chain.
+      </p>
+
+      <div class="grid grid-cols-3 gap-4 w-full text-left">
+        <div class="glass-card p-4 rounded-xl border-slate-800">
+          <div class="text-xs text-slate-400 mb-1">Categoría</div>
+          <div class="text-sm font-bold text-white">Microfinanzas DeFi</div>
+        </div>
+        <div class="glass-card p-4 rounded-xl border-slate-800">
+          <div class="text-xs text-slate-400 mb-1">Stack Tecnológico</div>
+          <div class="text-sm font-bold text-emerald-400">Solidity • Foundry • Viem</div>
+        </div>
+        <div class="glass-card p-4 rounded-xl border-slate-800">
+          <div class="text-xs text-slate-400 mb-1">Validación Formal</div>
+          <div class="text-sm font-bold text-indigo-300">29 Tests + Fuzzing</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 2: CONTEXTO Y EL PROBLEMA REAL -->
+    <section class="slide flex-col max-w-4xl w-full">
+      <div class="text-xs font-mono uppercase tracking-widest text-emerald-400 mb-2 font-semibold">1. Contexto & Diagnóstico</div>
+      <h2 class="text-3xl font-extrabold text-white mb-3">La Economía Popular y sus Riesgos Críticos</h2>
+      <p class="text-slate-300 text-sm mb-6 leading-relaxed">
+        En Colombia y Latinoamérica, millones de personas usan dos esquemas informales como su principal fuente de crédito y ahorro:
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div class="glass-card p-5 rounded-xl border-slate-800">
+          <div class="flex items-center gap-2 mb-2 text-emerald-400 font-bold text-sm">
+            <span>🔄 La "Cadena" (ROSCA)</span>
+          </div>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Grupo de $N$ personas aporta una cuota fija periódica. Cada periodo, un participante se lleva todo el pozo acumulado según un orden por turnos.
+          </p>
+        </div>
+        <div class="glass-card p-5 rounded-xl border-slate-800">
+          <div class="flex items-center gap-2 mb-2 text-indigo-400 font-bold text-sm">
+            <span>🏦 La "Natillera" (ASCA)</span>
+          </div>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Aportes periódicos a un fondo acumulativo común. Al cierre del año se liquida el capital más los intereses acumulados entre los participantes.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
+        <div class="p-3 rounded-lg bg-rose-950/30 border border-rose-800/40">
+          <div class="font-bold text-rose-300 mb-1">1. Fuga del Tesorero</div>
+          <div class="text-slate-400 text-[11px]">Riesgo de robo, pérdida o embargo de la cuenta personal del administrador.</div>
+        </div>
+        <div class="p-3 rounded-lg bg-rose-950/30 border border-rose-800/40">
+          <div class="font-bold text-rose-300 mb-1">2. Abandono Post-Turno</div>
+          <div class="text-slate-400 text-[11px]">Quien cobra el Turno #1 deja de pagar las cuotas restantes del ciclo.</div>
+        </div>
+        <div class="p-3 rounded-lg bg-rose-950/30 border border-rose-800/40">
+          <div class="font-bold text-rose-300 mb-1">3. Sorteos Opacos</div>
+          <div class="text-slate-400 text-[11px]">Asignación de turnos a dedo o con papelitos manipulables por el tesorero.</div>
+        </div>
+        <div class="p-3 rounded-lg bg-rose-950/30 border border-rose-800/40">
+          <div class="font-bold text-rose-300 mb-1">4. Inflación</div>
+          <div class="text-slate-400 text-[11px]">Dinero inactivo en efectivo que pierde poder adquisitivo día tras día.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 3: LOS 3 ASPECTOS CLAVE DE BLOCKCHAIN -->
+    <section class="slide flex-col max-w-4xl w-full">
+      <div class="text-xs font-mono uppercase tracking-widest text-emerald-400 mb-2 font-semibold">2. Requerimientos del Enunciado</div>
+      <h2 class="text-3xl font-extrabold text-white mb-2">Los 3 Pilares del Rol de Blockchain</h2>
+      <p class="text-slate-300 text-sm mb-5">Cómo abordamos exactamente los 3 mandatos descritos en el PDF oficial:</p>
+
+      <div class="space-y-3.5">
+        <div class="glass-card p-4 rounded-xl border-emerald-500/30 flex items-start gap-4">
+          <div class="w-10 h-10 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-base shrink-0">1</div>
+          <div>
+            <h3 class="text-sm font-bold text-white mb-0.5">Bóveda Inmutable (Eliminación del Tesorero Humano)</h3>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              El capital y las garantías residen en un Smart Contract (<code class="text-emerald-300">SavingsCircle.sol</code>). Ningún administrador tiene llaves privadas para retirar fondos arbitrariamente; el dinero solo se libera de forma programática.
+            </p>
+          </div>
+        </div>
+
+        <div class="glass-card p-4 rounded-xl border-amber-500/30 flex items-start gap-4">
+          <div class="w-10 h-10 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold text-base shrink-0">2</div>
+          <div>
+            <h3 class="text-sm font-bold text-white mb-0.5">Reglas Anti-Mora y Distribución a Puntuales</h3>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Mecanismo dual de <strong>Garantía Inicial (Colateral)</strong> + <strong>Multas por Extemporaneidad</strong>. Si alguien no paga, su deuda se cobra de su garantía. Quien paga tarde aporta una multa que va al pozo de premios de los participantes 100% cumplidos.
+            </p>
+          </div>
+        </div>
+
+        <div class="glass-card p-4 rounded-xl border-indigo-500/30 flex items-start gap-4">
+          <div class="w-10 h-10 rounded-lg bg-indigo-500/20 text-indigo-400 flex items-center justify-center font-bold text-base shrink-0">3</div>
+          <div>
+            <h3 class="text-sm font-bold text-white mb-0.5">Sorteo Verificable (Transparencia Algorítmica)</h3>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Esquema de compromiso en 2 fases con oráculo de aleatoriedad (<strong>Chainlink VRF</strong>). Los turnos se ordenan con el algoritmo <strong>Fisher-Yates con muestreo por rechazo</strong>, impidiendo cualquier sesgo de módulo o manipulación por front-running.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 4: ARQUITECTURA DE SMART CONTRACTS -->
+    <section class="slide flex-col max-w-4xl w-full">
+      <div class="text-xs font-mono uppercase tracking-widest text-emerald-400 mb-2 font-semibold">3. Diseño de Software & Contratos</div>
+      <h2 class="text-3xl font-extrabold text-white mb-2">Arquitectura Modular en Solidity</h2>
+      <p class="text-slate-300 text-sm mb-5">Estructura desacoplada de 7 contratos inteligentes bajo estándares de seguridad:</p>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-3.5 text-xs mb-4">
+        <div class="glass-card p-4 rounded-xl border-slate-800">
+          <div class="font-bold text-white flex items-center gap-1.5 mb-1.5">
+            <span class="w-2 h-2 rounded-full bg-emerald-400"></span> SavingsCircleFactory
+          </div>
+          <p class="text-slate-400 leading-relaxed">
+            Patrón Factory. Permite crear círculos paramétricos definiendo cuota, cupos, periodicidad, multa, rendimiento y modo (ROSCA/ASCA).
+          </p>
+        </div>
+
+        <div class="glass-card p-4 rounded-xl border-slate-800">
+          <div class="font-bold text-white flex items-center gap-1.5 mb-1.5">
+            <span class="w-2 h-2 rounded-full bg-emerald-400"></span> SavingsCircle (Core)
+          </div>
+          <p class="text-slate-400 leading-relaxed">
+            Bóveda inmutable. Gestiona estados, rondas, cobro de cuotas, ejecución de garantías y liquidación automática por turnos o al cierre.
+          </p>
+        </div>
+
+        <div class="glass-card p-4 rounded-xl border-slate-800">
+          <div class="font-bold text-white flex items-center gap-1.5 mb-1.5">
+            <span class="w-2 h-2 rounded-full bg-amber-400"></span> MockYieldVault
+          </div>
+          <p class="text-slate-400 leading-relaxed">
+            Simulador de rendimiento DeFi (Aave/RWA). Genera un retorno base periódico sobre el saldo bloqueado para proteger contra la inflación.
+          </p>
+        </div>
+
+        <div class="glass-card p-4 rounded-xl border-slate-800">
+          <div class="font-bold text-white flex items-center gap-1.5 mb-1.5">
+            <span class="w-2 h-2 rounded-full bg-indigo-400"></span> ReputationRegistry
+          </div>
+          <p class="text-slate-400 leading-relaxed">
+            Paper de Berkeley. Registro inmutable de historial crediticio comunitario (100 a 1000) y sistema de avales sociales entre miembros.
+          </p>
+        </div>
+
+        <div class="glass-card p-4 rounded-xl border-slate-800">
+          <div class="font-bold text-white flex items-center gap-1.5 mb-1.5">
+            <span class="w-2 h-2 rounded-full bg-emerald-400"></span> MockStablecoin (cUSD)
+          </div>
+          <p class="text-slate-400 leading-relaxed">
+            Token ERC-20 con paridad estable para evitar la volatilidad de ETH/BTC, con Faucet público para pruebas libres.
+          </p>
+        </div>
+
+        <div class="glass-card p-4 rounded-xl border-slate-800">
+          <div class="font-bold text-white flex items-center gap-1.5 mb-1.5">
+            <span class="w-2 h-2 rounded-full bg-indigo-400"></span> IRandomnessProvider
+          </div>
+          <p class="text-slate-400 leading-relaxed">
+            Interfaz de oráculo con dos implementaciones: <strong>Chainlink VRF v2.5</strong> (producción) y <strong>Mock VRF</strong> (entorno local).
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 5: EL SORTEO Y LA ALEATORIEDAD -->
+    <section class="slide flex-col max-w-4xl w-full">
+      <div class="text-xs font-mono uppercase tracking-widest text-emerald-400 mb-2 font-semibold">4. Criptografía Aplicada</div>
+      <h2 class="text-3xl font-extrabold text-white mb-2">Sorteo Verificable en 2 Fases (Anti Front-Running)</h2>
+      <p class="text-slate-300 text-sm mb-4">Por qué en Blockchain no se puede usar un <code class="text-emerald-300">random()</code> trivial en un solo paso:</p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 text-xs">
+        <div class="glass-card p-4 rounded-xl border-rose-900/40">
+          <div class="font-bold text-rose-400 mb-2">❌ El Riesgo del Sorteo en 1 Paso</div>
+          <p class="text-slate-300 leading-relaxed mb-2">
+            Si se sortea en la misma transacción del último inscrito usando <code class="text-slate-200">prevrandao</code> o <code class="text-slate-200">timestamp</code>:
+          </p>
+          <ul class="list-disc list-inside text-slate-400 space-y-1">
+            <li>El último puede simular la tx en su nodo.</li>
+            <li>Si no le gusta el turno asignado, revierte la tx.</li>
+            <li>Los validadores pueden manipular el hash.</li>
+          </ul>
+        </div>
+
+        <div class="glass-card p-4 rounded-xl border-emerald-900/40">
+          <div class="font-bold text-emerald-400 mb-2">✅ Nuestra Solución (Commitment-Reveal)</div>
+          <ol class="list-decimal list-inside text-slate-300 space-y-1.5 leading-relaxed">
+            <li><strong>Fase 1 (Commitment):</strong> Al llenarse el cupo, se congela la lista de participantes en un hash y pasa a estado <code class="text-emerald-300">DRAW_PENDING</code>.</li>
+            <li><strong>Fase 2 (Reveal / Oráculo):</strong> Se solicita aleatoriedad externa a Chainlink VRF.</li>
+            <li><strong>Fase 3 (Fisher-Yates):</strong> Se baraja con <em>rejection sampling</em> para evitar el sesgo de módulo (<code class="text-indigo-300">sample &lt; threshold</code>).</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 text-[11px] font-mono text-slate-300 flex items-center justify-between">
+        <span>Seed = keccak256(DRAW_VERSION, drawCommitment, requestId, randomWord)</span>
+        <span class="text-emerald-400 font-bold">100% Auditable</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 6: MECANISMOS ECONÓMICOS ANTI-MORA -->
+    <section class="slide flex-col max-w-4xl w-full">
+      <div class="text-xs font-mono uppercase tracking-widest text-emerald-400 mb-2 font-semibold">5. Tokenomics Comunitario</div>
+      <h2 class="text-3xl font-extrabold text-white mb-2">La Teoría de Juegos Anti-Abandono</h2>
+      <p class="text-slate-300 text-sm mb-5">Cómo logramos que ser honesto sea la estrategia dominante matemáticamente:</p>
+
+      <div class="grid grid-cols-3 gap-3.5 text-xs mb-4">
+        <div class="glass-card p-4 rounded-xl border-slate-800">
+          <div class="text-emerald-400 font-bold mb-1.5 flex items-center gap-1.5">
+            <span>🛡️ Depósito de Garantía</span>
+          </div>
+          <p class="text-slate-300 leading-relaxed">
+            Para entrar al círculo se exige un colateral (ej. 150 cUSD). Si alguien no paga su cuota, el contrato la descuenta de su garantía para pagarle al ganador del turno.
+          </p>
+        </div>
+
+        <div class="glass-card p-4 rounded-xl border-slate-800">
+          <div class="text-amber-400 font-bold mb-1.5 flex items-center gap-1.5">
+            <span>⚠️ Multa del 10% por Mora</span>
+          </div>
+          <p class="text-slate-300 leading-relaxed">
+            Si pagas fuera de la ventana puntual, se aplica un recargo automático. Esa multa no va a la plataforma: va directamente al <strong>Pozo de Premios</strong>.
+          </p>
+        </div>
+
+        <div class="glass-card p-4 rounded-xl border-slate-800">
+          <div class="text-indigo-400 font-bold mb-1.5 flex items-center gap-1.5">
+            <span>🏆 Premio a los Puntuales</span>
+          </div>
+          <p class="text-slate-300 leading-relaxed">
+            Quien paga a tiempo acumula <code class="text-indigo-300">onTimeShares</code>. Al liquidar, los intereses DeFi + las multas se reparten <strong>únicamente entre los cumplidos</strong>.
+          </p>
+        </div>
+      </div>
+
+      <div class="p-3.5 rounded-xl bg-slate-900 border border-slate-800 text-xs text-slate-300 flex items-center justify-between">
+        <span class="font-semibold text-white">Fórmula de Reparto al Cierre:</span>
+        <span class="font-mono text-emerald-400 text-[11px]">Premio_i = (Rendimiento_Base + Multas) × (Shares_i / TotalShares)</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 7: REPUTACIÓN ON-CHAIN (BERKELEY PAPER) -->
+    <section class="slide flex-col max-w-4xl w-full">
+      <div class="text-xs font-mono uppercase tracking-widest text-emerald-400 mb-2 font-semibold">6. Identidad & Microcrédito</div>
+      <h2 class="text-3xl font-extrabold text-white mb-2">Pasaporte de Reputación Descentralizada</h2>
+      <p class="text-slate-300 text-sm mb-4">
+        Inspirado en el paper: <em>"Good Reputation: Expanding Access to Credit Leveraging Reputational and Social Network Data"</em> (UC Berkeley):
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 text-xs">
+        <div class="glass-card p-4 rounded-xl border-slate-800">
+          <div class="font-bold text-white mb-2 flex items-center justify-between">
+            <span>Score Crediticio Comunitario</span>
+            <span class="text-indigo-400 font-mono">100 - 1000 pts</span>
+          </div>
+          <div class="space-y-1.5 text-slate-300">
+            <div class="flex justify-between"><span>Base inicial:</span><strong class="text-slate-200">500 pts</strong></div>
+            <div class="flex justify-between"><span>Pago puntual verificado:</span><strong class="text-emerald-400">+25 pts</strong></div>
+            <div class="flex justify-between"><span>Círculo completado limpio:</span><strong class="text-emerald-400">+60 pts</strong></div>
+            <div class="flex justify-between"><span>Pago en mora:</span><strong class="text-amber-400">-40 pts</strong></div>
+            <div class="flex justify-between"><span>Incumplimiento (Default):</span><strong class="text-rose-400">-150 pts</strong></div>
+          </div>
+        </div>
+
+        <div class="glass-card p-4 rounded-xl border-slate-800">
+          <div class="font-bold text-white mb-2 flex items-center justify-between">
+            <span>Respaldo de Red Social (Vouching)</span>
+            <span class="text-emerald-400 font-mono">+15 pts / aval</span>
+          </div>
+          <p class="text-slate-300 leading-relaxed mb-2">
+            Permite que miembros con excelente reputación (&ge; 500 pts y círculos limpios) avalen a vecinos o familiares desbancarizados.
+          </p>
+          <div class="p-2.5 rounded bg-slate-950/60 border border-slate-800/80 text-[11px] text-slate-400">
+            Convierte el historial de ahorro informal en un colateral reputacional verificable on-chain.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 8: TESTING Y AUDITORÍA -->
+    <section class="slide flex-col max-w-4xl w-full">
+      <div class="text-xs font-mono uppercase tracking-widest text-emerald-400 mb-2 font-semibold">7. Verificación y Calidad</div>
+      <h2 class="text-3xl font-extrabold text-white mb-2">Validación Formal & Suite de Pruebas</h2>
+      <p class="text-slate-300 text-sm mb-5">Pruebas automatizadas en Foundry que garantizan la integridad matemática y económica:</p>
+
+      <div class="grid grid-cols-3 gap-4 mb-5 text-center">
+        <div class="glass-card p-4 rounded-xl border-emerald-500/30">
+          <div class="text-3xl font-extrabold text-emerald-400 mb-1">29 / 29</div>
+          <div class="text-xs text-slate-300 font-medium">Tests Solidity Pasando</div>
+          <div class="text-[10px] text-slate-500">100% Success Rate</div>
+        </div>
+        <div class="glass-card p-4 rounded-xl border-indigo-500/30">
+          <div class="text-3xl font-extrabold text-indigo-400 mb-1">256</div>
+          <div class="text-xs text-slate-300 font-medium">Runs de Fuzzing</div>
+          <div class="text-[10px] text-slate-500">Permutaciones aleatorias</div>
+        </div>
+        <div class="glass-card p-4 rounded-xl border-amber-500/30">
+          <div class="text-3xl font-extrabold text-amber-400 mb-1">4 / 4</div>
+          <div class="text-xs text-slate-300 font-medium">Tests de Auditoría JS</div>
+          <div class="text-[10px] text-slate-500">Verificador off-chain</div>
+        </div>
+      </div>
+
+      <div class="p-3.5 rounded-xl bg-slate-900 border border-slate-800 text-xs text-slate-300">
+        <span class="text-emerald-400 font-bold">Casos de seguridad cubiertos:</span> Bloqueo de resorteos, prevención de cancelaciones en círculos activos, cobertura obligatoria de impagos, rechazo de avales Sybil y liquidación justa con wei dust.
+      </div>
+    </section>
+
+    <!-- SLIDE 9: DEMO EN VIVO Y CONCLUSIONES -->
+    <section class="slide flex-col max-w-4xl w-full text-center items-center">
+      <div class="text-xs font-mono uppercase tracking-widest text-emerald-400 mb-2 font-semibold">8. Demostración en Vivo</div>
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-white mb-3">Pase a la DApp Interactiva</h2>
+      <p class="text-slate-300 text-sm max-w-2xl mb-8 leading-relaxed">
+        Vamos a demostrar en vivo en el navegador cómo opera la bóveda inmutable, el sorteo verificable y las penalizaciones anti-mora.
+      </p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full text-left mb-8 text-xs">
+        <div class="glass-card p-4 rounded-xl border-slate-800">
+          <div class="font-bold text-emerald-400 mb-1">1. Sorteo Verificable</div>
+          <p class="text-slate-400">Completar cupo con 1-Click y observar la asignación pública de turnos.</p>
+        </div>
+        <div class="glass-card p-4 rounded-xl border-slate-800">
+          <div class="font-bold text-amber-400 mb-1">2. Ventana de Mora</div>
+          <p class="text-slate-400">Avanzar el reloj, cobrar recargo del 10% y castigar el score.</p>
+        </div>
+        <div class="glass-card p-4 rounded-xl border-slate-800">
+          <div class="font-bold text-indigo-400 mb-1">3. Ejecución de Garantía</div>
+          <p class="text-slate-400">Forzar impago y ver cómo el ganador cobra su pozo intacto.</p>
+        </div>
+      </div>
+
+      <a href="http://localhost:3000" target="_blank" class="px-6 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold text-sm shadow-lg shadow-emerald-500/20 transition flex items-center gap-2">
+        <span>Abrir DApp en localhost:3000</span>
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
+      </a>
+    </section>
+
+  </main>
+
+  <!-- Footer / Controles de Navegación -->
+  <footer class="flex items-center justify-between z-20 pt-2 border-t border-slate-800/60 max-w-6xl mx-auto w-full">
+    <div class="text-xs text-slate-500 flex items-center gap-2">
+      <span>Navegación:</span>
+      <kbd class="px-2 py-0.5 rounded bg-slate-900 border border-slate-800 text-slate-400 text-[10px] font-mono">←</kbd>
+      <kbd class="px-2 py-0.5 rounded bg-slate-900 border border-slate-800 text-slate-400 text-[10px] font-mono">→</kbd>
+      <span>o Espacio</span>
+    </div>
+
+    <div class="flex items-center gap-2">
+      <button onclick="prevSlide()" class="px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700/80 text-xs font-semibold text-slate-200 transition">
+        Anterior
+      </button>
+      <button onclick="nextSlide()" class="px-5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold shadow-lg shadow-emerald-950 transition">
+        Siguiente →
+      </button>
+    </div>
+  </footer>
+
+  <script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    const totalSlides = slides.length;
+    const currentSlideNum = document.getElementById('currentSlideNum');
+    const totalSlidesNum = document.getElementById('totalSlidesNum');
+    const progressBar = document.getElementById('progressBar');
+
+    totalSlidesNum.textContent = totalSlides;
+
+    function showSlide(index) {
+      slides.forEach((s, idx) => {
+        s.classList.remove('active');
+        if (idx === index) {
+          s.classList.add('active');
+        }
+      });
+      currentSlideNum.textContent = index + 1;
+      const progressPercent = ((index + 1) / totalSlides) * 100;
+      progressBar.style.width = progressPercent + '%';
+    }
+
+    function nextSlide() {
+      if (currentSlide < totalSlides - 1) {
+        currentSlide++;
+        showSlide(currentSlide);
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlide > 0) {
+        currentSlide--;
+        showSlide(currentSlide);
+      }
+    }
+
+    function toggleFullScreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(() => {});
+      } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        }
+      }
+    }
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+        nextSlide();
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        prevSlide();
+      } else if (e.key === 'f' || e.key === 'F11') {
+        toggleFullScreen();
+      }
+    });
+  </script>
+</body>
+</html>
